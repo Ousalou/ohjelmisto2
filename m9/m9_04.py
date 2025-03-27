@@ -33,9 +33,10 @@ class Auto:
             auto.current_nopeus = auto.current_nopeus + delta_nopeus_rand
         auto.current_matka = auto.current_matka + auto.current_nopeus
 
+
 autot = []
 
-for i in range(3):
+for i in range(10):
     rekisteritunnus = f"{random.choice('ABCDEFGHIJKLMNOPQRSTUWVXYZ')}{random.choice('ABCDEFGHIJKLMNOPQRSTUWVXYZ')}{random.choice('ABCDEFGHIJKLMNOPQRSTUWVXYZ')}-{random.randint(1, 9)}{random.randint(1, 9)}{random.randint(1, 9)}"
     print(rekisteritunnus)
     max_nopeus_rand = int(random.randint(100, 200))
@@ -48,17 +49,19 @@ print(autot)
 hour = 1
 
 while True:
-    print (f"\n-----------\n\n-----------\nTunti {hour}!!\n-----------\n\n-----------\n")
+    print(f"{'-' * 80}")
+    print (f"Tunti {hour}!")
+    print(f"{'-' * 80}")
     loop_break = False
     for auto in autot:
-        print(f"\n----------\nAUTO {auto.rekisteritunnus}\n-----------\n")
+        print(f"\nAUTO {auto.rekisteritunnus}\n-------------")
         delta_nopeus_rand = random.randint(-10,15)
-        print(f"\nYritetään kiihdyttää autoa {autot.index(auto)+1} {delta_nopeus_rand}km/h ....")
+        print(f"\nYritetään kiihdyttää autoa {auto.rekisteritunnus} {delta_nopeus_rand}km/h ....")
         auto.kiihdyta(delta_nopeus_rand)
-        print(f"Tämänhetkinen kuljettu matka autolla {autot.index(auto)+1} : {auto.current_matka:.0f} km\n")
+        print(f"Tämänhetkinen kuljettu matka autolla {auto.rekisteritunnus} : {auto.current_matka:.0f} km\n")
         print(f"Tämänhetkinen nopeus: {auto.current_nopeus}km/h\n")
-        if auto.current_matka >= 100:
-            print(f"\n----------\n\n----------\n\n----------\nAuto {auto.rekisteritunnus} on saavuttanut 10 000km!")
+        if auto.current_matka >= 10000:
+            print(f"\n----------\nAuto {auto.rekisteritunnus} on saavuttanut 10 000km!\n----------\n")
             voittaja = auto.rekisteritunnus
             loop_break = True
             break
@@ -66,13 +69,17 @@ while True:
         break
     hour = hour + 1
 
-print("debug")
+sorted_autot = sorted(autot, key=lambda auto: auto.current_matka, reverse=True)
 
+print(f"\n{'-'*80}")
+print(f"{'VOTITAJA:':<15} {voittaja:<10}")
 print(f"{'-'*80}")
-print(f"{'Rekisteritunnus':<20} | {'Nopeus lopussa':<20} | {'Kuljettu matka':<18} | {'Ranking':<15}")
+print(f"{'Rekisteritunnus':<20} | {'Nopeus lopussa':<20} | {'Kuljettu matka':<21} | {'Ranking':<15}")
 print(f"{'-'*80}")
-for auto in autot:
-    print(f"{auto.rekisteritunnus:<20} | {auto.current_nopeus:>2}{'km/h':<18} | {auto.current_matka:<5}{'km':<16}")
+
+for rank, auto in enumerate(sorted_autot, start=1):
+    print(f"{auto.rekisteritunnus:<20} | {auto.current_nopeus:>3}{'km/h':<18} | {auto.current_matka:<5}{'km':<16} | {rank}")
+
 print(f"{'-'*80}")
 
 
