@@ -8,42 +8,50 @@
 
 class Hissi:
     def __init__(hissi, max_kerros, min_kerros):
-        hissi.sijainti = min_kerros
+        alku_kerros = min_kerros
+        hissi.sijainti = alku_kerros
         hissi.max_kerros = max_kerros
         hissi.min_kerros = min_kerros
+
+    def hissin_kerros(hissi):
+        return hissi.sijainti
 
     def siirry_kerrokseen(hissi, kerros):
         if hissi.sijainti == kerros:
             print(f"Hissi on jo kerroksessa {kerros}.")
+        if kerros > hissi.max_kerros and kerros > hissi.min_kerros:
+            print("Tuota kerrosta ei ole!")
         elif hissi.sijainti > kerros:
             print(f"Painetaan nappia {kerros}!")
-            hissi.kerros_alas(kerros)
+            siirtyma = hissi.sijainti - kerros
+            for i in range(siirtyma):
+                hissi.kerros_alas()
         elif hissi.sijainti < kerros:
             print(f"Painetaan nappia {kerros}!")
-            hissi.kerros_ylos(kerros)
+            siirtyma = kerros - hissi.sijainti
+            for i in range(siirtyma):
+                hissi.kerros_ylos()
         else:
             pass
 
-    def kerros_ylos(hissi, kerros):
-        siirtyma = kerros - hissi.sijainti
-        for i in range(siirtyma):
-            hissi.sijainti = hissi.sijainti + 1
-            print(f"Siirrytään kerrokseen {hissi.sijainti}...")
+    def kerros_ylos(hissi):
+        hissi.sijainti = hissi.sijainti + 1
+        print(f"Siirrytään kerrokseen {hissi.sijainti}...")
         print(f"Hissi on nyt kerroksessa {hissi.sijainti}.")
 
 
-    def kerros_alas(hissi, kerros):
-        siirtyma = hissi.sijainti - kerros
-        for i in range(siirtyma):
-            hissi.sijainti = hissi.sijainti - 1
-            print(f"Siirrytään kerrokseen {hissi.sijainti}...")
+    def kerros_alas(hissi):
+        hissi.sijainti = hissi.sijainti - 1
+        print(f"Siirrytään kerrokseen {hissi.sijainti}...")
         print(f"Hissi on nyt kerroksessa {hissi.sijainti}.")
 
 h1 = Hissi(10, 1)
 while True:
-    kerros = int(input("Mihin kerrokseen haluat mennä? "))
-    Hissi.siirry_kerrokseen(h1, kerros)
+    kerros = input("Mihin kerrokseen haluat mennä? ")
     if kerros == "":
         break
+    kerros = int(kerros)
+    Hissi.siirry_kerrokseen(h1, kerros)
 
-print("debug")
+kerros = Hissi.hissin_kerros(h1)
+print(f"Ohjelma päättyi, olemme kerroksessa {kerros}.")
