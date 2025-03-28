@@ -1,63 +1,60 @@
-#Jatka edellisen tehtävän ohjelmaa siten, että teet Talo-luokan.
-# Talon alustajaparametreina annetaan alimman ja ylimmän kerroksen numero sekä hissien lukumäärä.
-# Talon luonnin yhteydessä talo luo tarvittavan määrän hissejä. Hissien lista tallennetaan talon ominaisuutena.
-# Kirjoita taloon metodi aja_hissiä, joka saa parametreinaan hissin numeron ja kohdekerroksen. Kirjoita pääohjelmaan lauseet talon luomiseksi ja talon hisseillä ajelemiseksi.
+#Jatka edellisen tehtävän ohjelmaa siten, että teet self-luokan.
+# selfn alustajaparametreina annetaan alimman ja ylimmän kerroksen numero sekä hissien lukumäärä.
+# selfn luonnin yhteydessä self luo tarvittavan määrän hissejä. Hissien lista tallennetaan selfn ominaisuutena.
+# Kirjoita selfon metodi aja_hissiä, joka saa parametreinaan hissin numeron ja kohdekerroksen. Kirjoita pääohjelmaan lauseet selfn luomiseksi ja selfn hisseillä ajelemiseksi.
 
 class Hissi:
-    def __init__(hissi, min_kerros, max_kerros, hissi_numero):
-        hissi.min_kerros = min_kerros
-        hissi.max_kerros = max_kerros
-        sijainti = min_kerros
-        hissi.sijainti = 1
-        hissi.numero = hissi_numero
+    def __init__(self, min_kerros, max_kerros, hissi_numero):
+        self.min_kerros = min_kerros
+        self.max_kerros = max_kerros
+        self.sijainti = 1
+        self.numero = hissi_numero
 
-    def loyda_hissi(hissi, hissin_numero):
+    def loyda_self(self, selfn_numero):
         pass
 
-    def siirry_kerrokseen(hissi, kerros):
-        if hissi.sijainti == kerros:
-            print(f"Hissi on jo kerroksessa {kerros}.")
-        if kerros > hissi.max_kerros and kerros > hissi.min_kerros:
+    def siirry_kerrokseen(self, kerros):
+        if self.sijainti == kerros:
+            print(f"self on jo kerroksessa {kerros}.")
+        if kerros > self.max_kerros or kerros < self.min_kerros:
             print("Tuota kerrosta ei ole!")
-        elif hissi.sijainti > kerros:
+        elif self.sijainti > kerros:
             print(f"Painetaan nappia {kerros}!")
-            siirtyma = hissi.sijainti - kerros
+            siirtyma = self.sijainti - kerros
             for i in range(siirtyma):
-                hissi.kerros_alas()
-        elif hissi.sijainti < kerros:
+                self.kerros_alas()
+        elif self.sijainti < kerros:
             print(f"Painetaan nappia {kerros}!")
-            siirtyma = kerros - hissi.sijainti
+            siirtyma = kerros - self.sijainti
             for i in range(siirtyma):
-                hissi.kerros_ylos()
-        return hissi.numero, hissi.sijainti
+                self.kerros_ylos()
+        return self.numero, self.sijainti
 
-    def kerros_ylos(hissi):
-        hissi.sijainti = hissi.sijainti + 1
-        print(f"Siirrytään kerrokseen {hissi.sijainti}...")
-        print(f"Hissi on nyt kerroksessa {hissi.sijainti}.")
+    def kerros_ylos(self):
+        self.sijainti = self.sijainti + 1
+        print(f"Siirrytään kerrokseen {self.sijainti}...")
+        print(f"self on nyt kerroksessa {self.sijainti}.")
 
 
-    def kerros_alas(hissi):
-        hissi.sijainti = hissi.sijainti - 1
-        print(f"Siirrytään kerrokseen {hissi.sijainti}...")
-        print(f"Hissi on nyt kerroksessa {hissi.sijainti}.")
+    def kerros_alas(self):
+        self.sijainti = self.sijainti - 1
+        print(f"Siirrytään kerrokseen {self.sijainti}...")
+        print(f"Hissi on nyt kerroksessa {self.sijainti}.")
 
-    def hissin_kerros(hissi, hissi_numero):
-        pass
+    def hissin_kerros(self):
+        return self.sijainti1
 
 class Talo:
-    def __init__(talo, min_kerros, max_kerros):
-        talo.min_kerros = min_kerros
-        talo.max_kerros = max_kerros
-        if talo.max_kerros <= 3:
-            talo.hissit_amount = 1
+    def __init__(self, min_kerros, max_kerros):
+        self.min_kerros = min_kerros
+        self.max_kerros = max_kerros
+        if self.max_kerros <= 3:
+            self.hissit_amount = 1
         else:
-            talo.hissit_amount = max_kerros - (max_kerros // 2)
-        hissit_amount = talo.hissit_amount
-        talo.hissit = talo.luo_hissit(hissit_amount, min_kerros, max_kerros)
+            self.hissit_amount = max_kerros - (max_kerros // 2)
+        self.hissit = self.luo_hissit(self.hissit_amount, min_kerros, max_kerros)
 
-
-    def luo_hissit(talo, hissit_amount, min_kerros, max_kerros):
+    def luo_hissit(self, hissit_amount, min_kerros, max_kerros):
         hissit = []
         global hissi_i
         for i in range(hissit_amount):
@@ -68,19 +65,19 @@ class Talo:
         print(hissit)
         return hissit
 
-    def aja_hissia(talo, hissi, kerros):
-        Hissi.siirry_kerrokseen(hissi, kerros)
+    def aja_hissia(self, hissi_numero):
+        kerros = int(input("Mihin kerrokseen haluat mennä? "))
+        self.hissit[hissi_numero-1].siirry_kerrokseen(kerros)
 
 while True:
+
     min_kerros = int(input("Anna ensimmäisen kerroksen numero: "))
     max_kerros = int(input("Anna ylimmän kerroksen numero: "))
-    talo = Talo(min_kerros, max_kerros)
-    print(f"Talossa on {talo.hissit_amount} hissiä.")
+    hissi = Talo(min_kerros, max_kerros)
+    print(f"Talossa on {hissi.hissit_amount} hissiä.")
     hissi_numero = int(input("Mitä hisseistä haluat ajaa? "))
-    kerros = int(input("Mihin kerrokseen haluat mennä? "))
-    hissi = f"hissi{hissi_numero}"
-    talo.aja_hissia(hissi, kerros)
-    print (f"Hissi {hissi_numero} on nyt kerroksessa {Hissi.hissin_kerros(hissi)}")
+    hissi.aja_hissia(hissi_numero)
+    print(f"Hissi {hissi_numero} on nyt kerroksessa {hissi.hissit[hissi_numero - 1].hissin_kerros()}")
 
 
 
