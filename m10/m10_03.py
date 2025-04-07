@@ -1,7 +1,6 @@
-#Jatka edellisen tehtävän ohjelmaa siten, että teet self-luokan.
-# selfn alustajaparametreina annetaan alimman ja ylimmän kerroksen numero sekä hissien lukumäärä.
-# selfn luonnin yhteydessä self luo tarvittavan määrän hissejä. Hissien lista tallennetaan selfn ominaisuutena.
-# Kirjoita selfon metodi aja_hissiä, joka saa parametreinaan hissin numeron ja kohdekerroksen. Kirjoita pääohjelmaan lauseet selfn luomiseksi ja selfn hisseillä ajelemiseksi.
+#Jatka edellisen tehtävän ohjelmaa siten, että
+# Talo-luokassa on parametriton metodi palohälytys, joka käskee kaikki hissit pohjakerrokseen.
+# Jatka pääohjelmaa siten, että talossasi tulee palohälytys.
 
 class Hissi:
     def __init__(self, min_kerros, max_kerros, hissi_numero):
@@ -69,17 +68,11 @@ class Talo:
         kerros = int(input("Mihin kerrokseen haluat mennä? "))
         self.hissit[hissi_numero-1].siirry_kerrokseen(kerros)
 
-
-min_kerros = int(input("Anna ensimmäisen kerroksen numero: "))
-max_kerros = int(input("Anna ylimmän kerroksen numero: "))
-hissi = Talo(min_kerros, max_kerros)
-print(f"Talossa on {hissi.hissit_amount} hissiä.")
-
 while True:
+    min_kerros = int(input("Anna ensimmäisen kerroksen numero: "))
+    max_kerros = int(input("Anna ylimmän kerroksen numero: "))
+    hissi = Talo(min_kerros, max_kerros)
+    print(f"Talossa on {hissi.hissit_amount} hissiä.")
     hissi_numero = int(input("Mitä hisseistä haluat ajaa? "))
     hissi.aja_hissia(hissi_numero)
     print(f"Hissi {hissi_numero} on nyt kerroksessa {hissi.hissit[hissi_numero - 1].hissin_kerros()}")
-
-
-
-
