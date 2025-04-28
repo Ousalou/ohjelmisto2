@@ -2,6 +2,8 @@
 # Talo-luokassa on parametriton metodi palohälytys, joka käskee kaikki hissit pohjakerrokseen.
 # Jatka pääohjelmaa siten, että talossasi tulee palohälytys.
 
+import random
+
 class Hissi:
     def __init__(self, min_kerros, max_kerros, hissi_numero):
         self.min_kerros = min_kerros
@@ -45,7 +47,7 @@ class Hissi:
 
 class Talo:
     def __init__(self, min_kerros, max_kerros):
-        self.min_kerros = min_kerros
+        self.min_kerros = 1
         self.max_kerros = max_kerros
         if self.max_kerros <= 3:
             self.hissit_amount = 1
@@ -68,11 +70,29 @@ class Talo:
         kerros = int(input("Mihin kerrokseen haluat mennä? "))
         self.hissit[hissi_numero-1].siirry_kerrokseen(kerros)
 
-while True:
-    min_kerros = int(input("Anna ensimmäisen kerroksen numero: "))
-    max_kerros = int(input("Anna ylimmän kerroksen numero: "))
-    hissi = Talo(min_kerros, max_kerros)
-    print(f"Talossa on {hissi.hissit_amount} hissiä.")
-    hissi_numero = int(input("Mitä hisseistä haluat ajaa? "))
-    hissi.aja_hissia(hissi_numero)
-    print(f"Hissi {hissi_numero} on nyt kerroksessa {hissi.hissit[hissi_numero - 1].hissin_kerros()}")
+    def palohalytys(self):
+        print(f"\nPalohälytys! Siirretään kaikki hissit takaisin kerrokseen 1.")
+        for hissi_i in hissi.hissit:
+            hissi_i.sijainti = 1
+
+
+min_kerros = 1
+max_kerros = int(input("Anna ylimmän kerroksen numero: "))
+hissi = Talo(min_kerros, max_kerros)
+print(f"Talossa on {hissi.hissit_amount} hissiä.")
+
+palo_arpa = 0
+while palo_arpa != 1:
+    hissi_numero_int = int(input("Mitä hisseistä haluat ajaa? "))
+    hissi.aja_hissia(hissi_numero_int)
+    print(f"Hissi {hissi.numero} on nyt kerroksessa {hissi.hissit[hissi_numero_int - 1].hissin_kerros()}")
+    palo_arpa = random.randint(1, 1)
+hissi_numero = 3
+hissi.aja_hissia(hissi_numero)
+
+hissi.palohalytys()
+
+for hissi_i in hissi.hissit:
+    print(f"Hissi {hissi_i.numero} on nyt kerroksessa {hissi_i.sijainti}.")
+
+
