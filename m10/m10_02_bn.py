@@ -10,22 +10,22 @@ class House:
         self.house_floors = house_floors
         self.elevators = []
         if self.house_floors <= 3:
-            self.elevator_amount = 1
+            self.elevator_amount = 2
         elif self.house_floors > 2:
             self.elevator_amount = self.house_floors // 2
         for i in range(self.elevator_amount):
             h = Elevator(house_floors)
             self.elevators.append(h)
 
-    def aja_hissia(self, move_to_floor):
-        Elevator.siirry_kerrokseen(move_to_floor)
+    def aja_hissia(self, el_number, move_to_floor):
+        self.elevators[el_number].siirry_kerrokseen(move_to_floor)
 
 class Elevator:
     hissit_amount = 0
 
     def __init__(self, max_floor):
-        hissit_amount = Elevator.hissit_amount + 1
-        self.name = hissit_amount
+        Elevator.hissit_amount += 1
+        self.name = Elevator.hissit_amount
         self.max_floor = max_floor
         self.min_floor = 1
         self.current_floor = 1
@@ -60,7 +60,7 @@ max_floor = int(input("Anna ylimmän kerroksen numero: "))
 talo = House(max_floor)
 
 while True:
-    hissi = int(input("Mitä hisseistä haluat ajaa? "))
-    move_to_floor_inp = int(input("Mihin kerrokseen haluat mennä?"))
-    talo.aja_hissia(move_to_floor_inp)
-    print(f"Hissi {Elevator.name} on kerroksessa {Elevator.current_floor}")
+    el_number = int(input("Mitä hisseistä haluat ajaa? ")) - 1
+    move_to_floor = int(input("Mihin kerrokseen haluat mennä?"))
+    talo.aja_hissia(el_number, move_to_floor)
+    print(f"Hissi {talo.elevators[el_number].name } on kerroksessa {talo.elevators[el_number].current_floor}")
