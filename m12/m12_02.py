@@ -20,10 +20,10 @@ def weather(city):
     current_temperature = f"{current_weather_response['main']['temp'] - 273.15:.0f}"
     current_weather = []
     for weathers in current_weather_response["weather"]:
-        current_weather.append(weathers["main"])
+        current_weather.append(weathers["main"])            #turha jos ei muita arvoja
     return current_weather, current_temperature
 
 city = input("City name in English: ")
 saa, lampotila = weather(city)
-print(f"The weather is {saa[0].lower()} and the temperature {lampotila} Celsius.")
+print(f"The weather is described as {saa[0].lower()} and the temperature is {lampotila} Celsius.")
 
