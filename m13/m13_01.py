@@ -21,6 +21,7 @@ def tarkista_alkuluku(number):
         "isPrime": alkuluku(number)
     }
     return jsonify(tulos)
+                                                                        #HUOM MITÄÄN EI TARVITSE KÄYNNISTÄÄ ITSE, front tekee tämän
 
 if __name__ == '__main__':
     app.run(use_reloader=True, host='127.0.0.1', port=3000)
